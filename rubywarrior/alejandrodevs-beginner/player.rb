@@ -1,8 +1,7 @@
 class Player
 
   def play_turn(warrior)
-    # Defines ancestor method to warrior instance and return @warrior
-    # instance_variable in this Player class.
+    # Defines ancestor method to warrior instance.
     ancestor = @warrior || warrior
     warrior.define_singleton_method(:ancestor){ ancestor }
 
