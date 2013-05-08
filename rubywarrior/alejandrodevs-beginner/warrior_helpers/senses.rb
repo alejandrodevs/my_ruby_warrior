@@ -22,18 +22,18 @@ module WarriorHelpers
     end
 
     def danger?
-      danger_object?(path_objects.first)
+      dangerous_item?(items_in_sight.first)
     end
 
     def safe?
       !danger?
     end
 
-    def path_objects
+    def items_in_sight
       look.select{|o| o.to_s != "nothing"}.map(&:to_s)
     end
 
-    def danger_object? obj
+    def dangerous_item? obj
       ["Wizard", "Archer"].include?(obj)
     end
 
