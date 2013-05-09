@@ -6,11 +6,11 @@ module WarriorHelpers
     end
 
     def dying?
-      warrior.health < 4
+      warrior.health < 3
     end
 
     def fit?
-      warrior.health > 15
+      warrior.health > 10
     end
 
   end

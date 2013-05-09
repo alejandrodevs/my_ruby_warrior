@@ -9,20 +9,15 @@ class Warrior
     @warrior = warrior
   end
 
+  def direction
+    set_direction
+  end
+
   def play!
-    if taking_damage? && dying?
-      retire!
-    elsif retired? && !fit?
-      rest!
-    elsif feel.empty?
-      if safe?
-        walk!
-      else
-        shoot!
-      end
-    elsif !feel.empty?
-      rescue! if feel.captive?
-      attack! if !feel.captive?
+    if taking_damage? && dying? then retire!
+    elsif retired? && !fit? then rest!
+    elsif feel.empty? then safe? ? walk! : (shooters?(1) || shooters?(2)) ? shoot! : walk!
+    elsif !feel.empty? then feel.captive? ? rescue! : attack!
     end
   end
 

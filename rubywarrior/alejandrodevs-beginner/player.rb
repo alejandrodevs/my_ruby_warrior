@@ -6,6 +6,7 @@ class Player
 
   def play_turn(warrior)
     @warrior.prepare(warrior)
+    @warrior.direction
     @warrior.play!
     @warrior.memories
   end

@@ -2,15 +2,15 @@ module WarriorHelpers
   module Senses
 
     def feel
-      warrior.feel(to)
+      warrior.feel(@to)
     end
 
     def health
       warrior.health
     end
 
-    def look
-      warrior.look(to)
+    def look to = @to
+      warrior.look(to).map(&:to_s)
     end
 
     def taking_damage?
@@ -22,19 +22,27 @@ module WarriorHelpers
     end
 
     def danger?
-      dangerous_item?(items_in_sight.first)
+      sludges?(0) || shooters?(1) || shooters?(2)
     end
 
     def safe?
       !danger?
     end
 
-    def items_in_sight
-      look.select{|o| o.to_s != "nothing"}.map(&:to_s)
+    def sludges? pos
+      thick_sludge?(pos) || small_sludge?(pos)
     end
 
-    def dangerous_item? obj
-      ["Wizard", "Archer"].include?(obj)
+    def thick_sludge? pos
+      look[pos] == "Thick Sludge"
+    end
+
+    def small_sludge? pos
+      look[pos] == "Small Sludge"
+    end
+
+    def shooters? pos
+      ["Wizard", "Archer"].include?(look[pos])
     end
 
   end
