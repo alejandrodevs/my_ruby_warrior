@@ -3,26 +3,28 @@ module WarriorHelpers
 
     def set_direction
       if warrior.feel(:backward).wall?
-        @wall_back = true
-        @to = :forward
+        @wall_back = !@wall_back
+        :forward
       elsif warrior.feel(:forward).wall?
-        @to = :backward
+        @wall_front = !@wall_front
+        :backward
+      elsif wall?(@to || :forward)
+        @to = inverse
       else
-        if only_wall?(@to || :forward)
-          @to = inverse
-        else
-          @to ||= :forward
-        end
+        @to ||= :forward
       end
     end
 
     def inverse
-      (@to || :forward) == :forward ? :backward : :forward
+      if (@to || :forward) == :forward
+        @wall_back == true ? :forward : :backward
+      else
+        @wall_front == true ? :backward : :forward
+      end
     end
 
-    def only_wall? pos
-      units = look(pos).select{ |e| e != "nothing" }.uniq
-      units.length == 1 && units.include?("wall") && @to == :forward && !@wall_back
+    def wall? pos
+      look(pos)[0] == "wall"
     end
 
   end

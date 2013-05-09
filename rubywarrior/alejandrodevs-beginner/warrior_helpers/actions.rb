@@ -2,6 +2,7 @@ module WarriorHelpers
   module Actions
 
     def attack!
+      @attacks += (@to == :forward ? 5 : 3)
       warrior.attack!(@to)
     end
 
@@ -11,6 +12,7 @@ module WarriorHelpers
 
     def walk!
       @retired = false
+      @attacks = 0
       warrior.walk!(@to)
     end
 

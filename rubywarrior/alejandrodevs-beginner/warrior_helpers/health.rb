@@ -1,8 +1,8 @@
 module WarriorHelpers
   module Health
 
-    def prev_health
-      @prev_health || warrior.health
+    def previous_health
+      @previous_health || warrior.health
     end
 
     def dying?

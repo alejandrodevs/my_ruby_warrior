@@ -14,7 +14,7 @@ module WarriorHelpers
     end
 
     def taking_damage?
-      warrior.health < prev_health
+      warrior.health < previous_health
     end
 
     def retired?
@@ -22,7 +22,7 @@ module WarriorHelpers
     end
 
     def danger?
-      sludges?(0) || shooters?(1) || shooters?(2)
+      sludges?(0) || shooter?(1) || shooter?(2)
     end
 
     def safe?
@@ -38,11 +38,50 @@ module WarriorHelpers
     end
 
     def small_sludge? pos
-      look[pos] == "Small Sludge"
+      look[pos] == "Sludge"
     end
 
-    def shooters? pos
+    def shooter? pos
       ["Wizard", "Archer"].include?(look[pos])
+    end
+
+    def nothing? pos
+      look[pos] == "nothing"
+    end
+
+    def enemy? pos
+      ["Wizard", "Archer", "Thick Sludge", "Sludge"].
+        include?(look[pos])
+    end
+
+    def can_survive? pos
+      if enemy?(pos)
+        enemy_health[look[pos]] - (@attacks + (@to == :forward ? 5 : 3)) <= 0
+      else
+        false
+      end
+    end
+
+    def should_retire?
+      taking_damage? && dying?
+    end
+
+    def should_rest?
+      retired? && !fit?
+    end
+
+    def should_shoot?
+      nothing?(0) && shooter?(1) ||
+      nothing?(0) && (enemy?(1) || nothing?(1)) && shooter?(2)
+    end
+
+    def enemy_health
+      {
+        "Wizard" => 3,
+        "Archer" => 7,
+        "Thick Sludge" => 25,
+        "Sludge" => 12
+      }
     end
 
   end

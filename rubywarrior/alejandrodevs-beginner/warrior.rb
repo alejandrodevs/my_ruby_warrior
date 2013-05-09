@@ -10,19 +10,19 @@ class Warrior
   end
 
   def direction
-    set_direction
+    @to = set_direction
   end
 
   def play!
-    if taking_damage? && dying? then retire!
-    elsif retired? && !fit? then rest!
-    elsif feel.empty? then safe? ? walk! : (shooters?(1) || shooters?(2)) ? shoot! : walk!
+    if should_retire? then retire!
+    elsif should_rest? then rest!
+    elsif feel.empty? then safe? ? walk! : should_shoot? ? shoot! : walk!
     elsif !feel.empty? then feel.captive? ? rescue! : attack!
     end
   end
 
   def memories
-    @prev_health = warrior.health
+    @previous_health = warrior.health
   end
 
 end
