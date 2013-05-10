@@ -63,12 +63,16 @@ module WarriorHelpers
       ENEMIES.include?(look[pos])
     end
 
+    def power
+      should_shoot? ? 3 : (@to == :forward ? 5 : 3)
+    end
+
     def should_retire?
-      taking_damage? && dying? && !can_survive?
+      taking_damage? && dying? && !can_kill_it?
     end
 
     def should_rest?
-      retired? || !health_necessary?
+      retired? || (!health_necessary? && !can_kill_it?)
     end
 
     def empty_line?
@@ -99,24 +103,18 @@ module WarriorHelpers
       {"Wizard" => 3, "Archer" => 7, "Thick Sludge" => 24, "Sludge" => 12}
     end
 
-    def can_survive?
-      if enemy?(0)
-        enemies_hp[look[0]] - (@attacks + (@to == :forward ? 5 : 3)) <= 0
-      elsif enemy?(1)
-        enemies_hp[look[1]] - (@attacks + (@to == :forward ? 5 : 3)) <= 0
-      elsif enemy?(2)
-        enemies_hp[look[2]] - (@attacks + (@to == :forward ? 5 : 3)) <= 0
-      end
+    def can_kill_it?
+      next_enemy ? (next_enemy_life - power <= 0) : true
+    end
+
+    def dwt
+      (next_enemy_life / power).ceil * 3
     end
 
     def health_necessary?
-      if next_enemy && @to != :backward
-        a = ((next_enemy_life / (@to == :forward ? 5 : 3)).ceil * 3)
-        a >= 20 ? true : a < health
-      elsif there_wall?
-        true
-      else
-        health > 3
+      if next_enemy then dwt >= 20 ? health >= 19 : dwt < health
+      elsif there_wall? then true
+      else health > 3
       end
     end
 
