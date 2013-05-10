@@ -77,10 +77,13 @@ module WarriorHelpers
     end
 
     def health_necessary?
-      if next_enemy
-        ((next_enemy_life / (@to == :forward ? 5 : 3)).ceil * 3) < health
-      else
+      if next_enemy && @to != :backward
+        a = ((next_enemy_life / (@to == :forward ? 5 : 3)).ceil * 3)
+        a >= 20 ? true : a < health
+      elsif there_wall?
         true
+      else
+        health > 3
       end
     end
 
@@ -90,7 +93,7 @@ module WarriorHelpers
 
     def should_shoot?
       ((nothing?(0) && wizard?(1)) ||
-      (nothing?(0) && nothing?(1) && shooter?(2))
+      (nothing?(0) && nothing?(1) && shooter?(2)))
     end
 
     ENEMIES = ["Wizard", "Archer", "Thick Sludge", "Sludge"]
@@ -99,12 +102,20 @@ module WarriorHelpers
       look.select{ |e| ENEMIES.include? e }.first
     end
 
+    def empty_line?
+      look.uniq == 1 && look[0] == "nothing"
+    end
+
     def next_enemy_life
       if should_shoot?
         enemy_health[next_enemy] - @shoots.to_i
       else
         enemy_health[next_enemy] - @attacks.to_i
       end
+    end
+
+    def there_wall?
+      look.include? "wall"
     end
 
     def enemy_health

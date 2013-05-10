@@ -8,10 +8,11 @@ module WarriorHelpers
       elsif warrior.feel(:forward).wall?
         @wall_front = !@wall_front
         :backward
-      elsif wall?(@to || :forward)
+      elsif only_wall? && !@only_wall
+        @only_wall = true
         @to = inverse
       else
-        @to ||= :forward
+        @to ||= :backward
       end
     end
 
@@ -23,8 +24,9 @@ module WarriorHelpers
       end
     end
 
-    def wall? pos
-      look(pos)[0] == "wall"
+    def only_wall?
+      a = look(@to || :backward).select{ |e| e != "nothing" }.uniq
+      a.length == 1 && a[0] == "wall"
     end
 
   end
