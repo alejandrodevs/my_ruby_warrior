@@ -5,6 +5,11 @@ class Warrior
 
   attr_accessor :warrior
 
+  def initialize
+    @attacks = 0
+    @shoots  = 0
+  end
+
   def prepare warrior
     @warrior = warrior
   end

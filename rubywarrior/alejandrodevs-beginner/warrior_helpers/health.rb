@@ -10,7 +10,7 @@ module WarriorHelpers
     end
 
     def fit?
-      warrior.health > 10
+      warrior.health > 12
     end
 
   end
