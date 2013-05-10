@@ -1,6 +1,8 @@
 module WarriorHelpers
   module Senses
 
+    ENEMIES = ["Wizard", "Archer", "Thick Sludge", "Sludge"]
+
     def feel
       warrior.feel(@to)
     end
@@ -58,22 +60,53 @@ module WarriorHelpers
     end
 
     def enemy? pos
-      ["Wizard", "Archer", "Thick Sludge", "Sludge"].
-        include?(look[pos])
-    end
-
-    def can_survive?
-      if enemy?(0)
-        enemy_health[look[0]] - (@attacks + (@to == :forward ? 5 : 3)) <= 0
-      elsif enemy?(1)
-        enemy_health[look[1]] - (@attacks + (@to == :forward ? 5 : 3)) <= 0
-      elsif enemy?(2)
-        enemy_health[look[2]] - (@attacks + (@to == :forward ? 5 : 3)) <= 0
-      end
+      ENEMIES.include?(look[pos])
     end
 
     def should_retire?
       taking_damage? && dying? && !can_survive?
+    end
+
+    def should_rest?
+      retired? || !health_necessary?
+    end
+
+    def empty_line?
+      look.uniq == 1 && look[0] == "nothing"
+    end
+
+    def there_wall?
+      look.include? "wall"
+    end
+
+    def next_enemy
+      look.select{ |e| ENEMIES.include? e }.first
+    end
+
+    def should_shoot?
+      nothing?(0) && (wizard?(1) || (nothing?(1) && shooter?(2)))
+    end
+
+    def next_enemy_life
+      enemies_hp[next_enemy] - damage_given
+    end
+
+    def damage_given
+      (should_shoot? ? @shoots : @attacks).to_i
+    end
+
+    def enemies_hp
+      {"Wizard" => 3, "Archer" => 7, "Thick Sludge" => 24, "Sludge" => 12}
+    end
+
+    def can_survive?
+      if enemy?(0)
+        enemies_hp[look[0]] - (@attacks + (@to == :forward ? 5 : 3)) <= 0
+      elsif enemy?(1)
+        enemies_hp[look[1]] - (@attacks + (@to == :forward ? 5 : 3)) <= 0
+      elsif enemy?(2)
+        enemies_hp[look[2]] - (@attacks + (@to == :forward ? 5 : 3)) <= 0
+      end
     end
 
     def health_necessary?
@@ -85,46 +118,6 @@ module WarriorHelpers
       else
         health > 3
       end
-    end
-
-    def should_rest?
-      retired? || !health_necessary?
-    end
-
-    def should_shoot?
-      ((nothing?(0) && wizard?(1)) ||
-      (nothing?(0) && nothing?(1) && shooter?(2)))
-    end
-
-    ENEMIES = ["Wizard", "Archer", "Thick Sludge", "Sludge"]
-
-    def next_enemy
-      look.select{ |e| ENEMIES.include? e }.first
-    end
-
-    def empty_line?
-      look.uniq == 1 && look[0] == "nothing"
-    end
-
-    def next_enemy_life
-      if should_shoot?
-        enemy_health[next_enemy] - @shoots.to_i
-      else
-        enemy_health[next_enemy] - @attacks.to_i
-      end
-    end
-
-    def there_wall?
-      look.include? "wall"
-    end
-
-    def enemy_health
-      {
-        "Wizard" => 3,
-        "Archer" => 7,
-        "Thick Sludge" => 24,
-        "Sludge" => 12
-      }
     end
 
   end
