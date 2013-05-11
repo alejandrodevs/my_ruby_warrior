@@ -89,7 +89,7 @@ module WarriorHelpers
     end
 
     def should_rest?
-      (!health_necessary? && !can_kill_it?) || test
+      !enemy?(0) && (!health_necessary? && !can_kill_it?) || test
     end
 
     #--------------------------------------------------------------
@@ -123,7 +123,8 @@ module WarriorHelpers
     end
 
     def dwt
-      (next_enemy_life / power).ceil * 3
+      a = (next_enemy_life / power).ceil * 3
+      (next_enemy_life / power.to_f) == (next_enemy_life / power) ? a - 3 : a
     end
 
     def health_necessary?

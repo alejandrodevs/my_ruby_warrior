@@ -11,7 +11,7 @@ module WarriorHelpers
     end
 
     def walk!
-      @attacks, @retired = 0, false
+      @retired = false
       warrior.walk!(@to)
     end
 
