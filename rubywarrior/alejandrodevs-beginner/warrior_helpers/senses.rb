@@ -68,16 +68,31 @@ module WarriorHelpers
     end
 
     def should_retire?
-      taking_damage? && dying? && !can_kill_it?
+      dying? && !can_kill_it? && danger?
+    end
+
+    #--------------------------------------------------------------
+    # TESTS
+    #--------------------------------------------------------------
+
+    def test
+      if retired? && !next_enemy && old_enemy
+        a = (((enemies_hp[old_enemy] - damage_given) / 3) * 3) + 1
+        a >= 20 ? health < 19 : a > health
+      else
+        false
+      end
+    end
+
+    def old_enemy
+      Array(@previous_look).select{|e| ENEMIES.include? e }.first
     end
 
     def should_rest?
-      retired? || (!health_necessary? && !can_kill_it?)
+      (!health_necessary? && !can_kill_it?) || test
     end
 
-    def empty_line?
-      look.uniq == 1 && look[0] == "nothing"
-    end
+    #--------------------------------------------------------------
 
     def there_wall?
       look.include? "wall"
@@ -114,7 +129,6 @@ module WarriorHelpers
     def health_necessary?
       if next_enemy then dwt >= 20 ? health >= 19 : dwt < health
       elsif there_wall? then true
-      else health > 3
       end
     end
 

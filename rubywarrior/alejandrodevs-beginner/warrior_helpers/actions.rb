@@ -7,12 +7,11 @@ module WarriorHelpers
     end
 
     def rest!
-      @retired = false
       warrior.rest!
     end
 
     def walk!
-      @attacks = 0
+      @attacks, @retired = 0, false
       warrior.walk!(@to)
     end
 
@@ -25,7 +24,7 @@ module WarriorHelpers
     end
 
     def retire!
-      @retired = true
+      @previous_look, @retired = look, true
       warrior.walk!(@to == :forward ? :backward : :forward)
     end
 
