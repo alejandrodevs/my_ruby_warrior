@@ -12,7 +12,25 @@ module WarriorHelpers
         @only_wall = true
         @to = inverse
       else
-        @to ||= :backward
+        @to ||= test_to
+      end
+    end
+
+    def test_to
+      b = first_item(:backward)
+      f = first_item(:forward)
+      if b.first
+        if f.first
+          if b.last < f.last
+            f.first == "Captive" ? :forward : :backward
+          else
+            b.first == "Captive" ? :backward : :forward
+          end
+        else
+          :backward
+        end
+      else
+        f.first ? :forward : :backward
       end
     end
 

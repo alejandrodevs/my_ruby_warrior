@@ -98,8 +98,17 @@ module WarriorHelpers
       look.include? "wall"
     end
 
+    def enemies to = @to
+      look(to).select{ |e| ENEMIES.include? e }
+    end
+
     def next_enemy
-      look.select{ |e| ENEMIES.include? e }.first
+      enemies.first
+    end
+
+    def first_item to = @to
+      i = -1
+      [look(to).detect{ |e| i += 1; e != "nothing" }, i]
     end
 
     def should_shoot?
