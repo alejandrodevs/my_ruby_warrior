@@ -1,11 +1,8 @@
-require 'warrior_helpers/senses'
-require 'warrior_helpers/actions'
-require 'warrior_helpers/course'
-require 'warrior_helpers/health'
+Dir[File.dirname(__FILE__) + '/warrior_helpers/*.rb'].each{ |file| require file }
 
 module WarriorHelpers
   include Senses
   include Actions
-  include Course
+  include Direction
   include Health
 end

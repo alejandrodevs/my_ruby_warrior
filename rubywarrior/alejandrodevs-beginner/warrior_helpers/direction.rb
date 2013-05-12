@@ -1,5 +1,5 @@
 module WarriorHelpers
-  module Course
+  module Direction
 
     def set_direction
       if warrior.feel(:backward).wall?

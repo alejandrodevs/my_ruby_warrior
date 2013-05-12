@@ -9,9 +9,5 @@ module WarriorHelpers
       warrior.health < 3
     end
 
-    def fit?
-      warrior.health > 12
-    end
-
   end
 end
