@@ -115,6 +115,10 @@ module WarriorHelpers
       nothing?(0) && (wizard?(1) || (nothing?(1) && shooter?(2)))
     end
 
+    def should_walk?
+      feel.empty? && !should_shoot?
+    end
+
     def next_enemy_life
       enemies_hp[next_enemy] - damage_given
     end

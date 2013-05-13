@@ -18,7 +18,8 @@ class Warrior
   def play!
     if    should_retire? then retire!
     elsif should_rest?   then rest!
-    elsif feel.empty?    then should_shoot? ? shoot! : walk!
+    elsif should_walk?   then walk!
+    elsif should_shoot?  then shoot!
     elsif feel.enemy?    then attack!
     elsif feel.captive?  then rescue!
     end
