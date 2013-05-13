@@ -14,12 +14,9 @@ class Warrior
     @warrior = warrior
   end
 
-  def set_direction
-    @to = direction
-  end
-
   def play!
-    if    should_retire? then retire!
+    if    should_pivot?  then pivot!
+    elsif should_retire? then retire!
     elsif should_rest?   then rest!
     elsif should_walk?   then walk!
     elsif should_shoot?  then shoot!

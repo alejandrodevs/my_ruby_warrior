@@ -36,8 +36,8 @@ module WarriorHelpers
         ENEMIES.include?(look[pos])
       end
 
-      def enemies to = @to
-        look(to).select{ |e| ENEMIES.include? e }
+      def enemies
+        look.select{ |e| ENEMIES.include? e }
       end
 
       def next_enemy
@@ -58,6 +58,10 @@ module WarriorHelpers
 
       def old_enemy
         Array(@previous_look).select{|e| ENEMIES.include? e }.first
+      end
+
+      def old_enemies
+        @previous_look.select{|e| ENEMIES.include? e }
       end
 
     end

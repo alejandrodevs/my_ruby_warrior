@@ -2,12 +2,16 @@ module WarriorHelpers
   module Senses
     module Shoulds
 
+      def should_pivot?
+        feel.wall?
+      end
+
       def should_retire?
         dying? && !can_kill_it? && danger?
       end
 
       def should_rest?
-        !enemy?(0) && (!health_necessary? && !can_kill_it?) || test
+        !enemy?(0) && ((!health_necessary? && !can_kill_it?) || test)
       end
 
       def should_shoot?

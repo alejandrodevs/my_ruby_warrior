@@ -3,7 +3,7 @@ module WarriorHelpers
 
     def attack!
       @attacks = enemy_will_die? ? 0 : @attacks + power
-      warrior.attack!(@to)
+      warrior.attack!
     end
 
     def rest!
@@ -12,21 +12,26 @@ module WarriorHelpers
 
     def walk!
       @retired = false
-      warrior.walk!(@to)
+      warrior.walk!
     end
 
     def rescue!
-      warrior.rescue!(@to)
+      warrior.rescue!
+    end
+
+    def pivot!
+      @pivoted = true
+      warrior.pivot!
     end
 
     def retire!
       @previous_look, @retired = look, true
-      warrior.walk!(inverse_direction)
+      warrior.walk!(:backward)
     end
 
     def shoot!
       @shoots = enemy_will_die? ? 0 : @shoots + power
-      warrior.shoot!(@to)
+      warrior.shoot!
     end
 
   end

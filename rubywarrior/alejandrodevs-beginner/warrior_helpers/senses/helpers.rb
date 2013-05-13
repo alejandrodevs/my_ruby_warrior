@@ -3,15 +3,15 @@ module WarriorHelpers
     module Helpers
 
       def power
-        should_shoot? ? 3 : (@to == :forward ? 5 : 3)
+        should_shoot? ? 3 : 5
       end
 
       def damage_given
         (should_shoot? ? @shoots : @attacks).to_i
       end
 
-      def clean_line to = @to
-        look(@to || :backward).select{ |e| e != "nothing" }
+      def clean_line
+        look.select{ |e| e != "nothing" }
       end
 
       def dwt

@@ -3,15 +3,15 @@ module WarriorHelpers
     module Basics
 
       def feel
-        warrior.feel(@to)
+        warrior.feel
       end
 
       def health
         warrior.health
       end
 
-      def look to = @to
-        warrior.look(to).map(&:to_s)
+      def look
+        warrior.look.map(&:to_s)
       end
 
       def taking_damage?
@@ -20,6 +20,10 @@ module WarriorHelpers
 
       def retired?
         @retired || false
+      end
+
+      def pivoted?
+        @pivoted || false
       end
 
       def danger?
