@@ -16,11 +16,13 @@ class Warrior
   end
 
   def play!
-    if should_retire? then retire!
-    elsif should_rest? then rest!
-    elsif feel.empty? then safe? ? walk! : should_shoot? ? shoot! : walk!
-    elsif !feel.empty? then feel.captive? ? rescue! : attack!
+    if    should_retire? then retire!
+    elsif should_rest?   then rest!
+    elsif feel.empty?    then should_shoot? ? shoot! : walk!
+    elsif feel.enemy?    then attack!
+    elsif feel.captive?  then rescue!
     end
+
     @previous_health = warrior.health
   end
 
