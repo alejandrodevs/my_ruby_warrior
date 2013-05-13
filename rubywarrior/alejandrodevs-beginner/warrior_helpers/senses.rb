@@ -6,32 +6,13 @@ module WarriorHelpers
     include Shoulds
     include Enemies
     include Helpers
-
-    def nothing? pos
-      look[pos] == "nothing"
-    end
-
-    #--------------------------------------------------------------
-    # TESTS
-    #--------------------------------------------------------------
+    include Battlefield
 
     def test
       if retired? && !next_enemy && old_enemy
         a = (((enemies_hp[old_enemy] - damage_given) / 3) * 3) + 1
         a >= 20 ? health < 19 : a > health
-      else
-        false
       end
-    end
-
-    def old_enemy
-      Array(@previous_look).select{|e| ENEMIES.include? e }.first
-    end
-
-    #--------------------------------------------------------------
-
-    def there_wall?
-      look.include? "wall"
     end
 
     def first_item to = @to

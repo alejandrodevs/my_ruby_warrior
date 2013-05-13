@@ -56,6 +56,10 @@ module WarriorHelpers
         next_enemy ? (next_enemy_life - power <= 0) : true
       end
 
+      def old_enemy
+        Array(@previous_look).select{|e| ENEMIES.include? e }.first
+      end
+
     end
   end
 end
