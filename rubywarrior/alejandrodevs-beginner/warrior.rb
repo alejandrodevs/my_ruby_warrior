@@ -12,6 +12,9 @@ class Warrior
 
   def prepare warrior
     @warrior = warrior
+  end
+
+  def set_direction
     @to = direction
   end
 
@@ -23,7 +26,9 @@ class Warrior
     elsif feel.enemy?    then attack!
     elsif feel.captive?  then rescue!
     end
+  end
 
+  def set_memories
     @previous_health = warrior.health
   end
 
