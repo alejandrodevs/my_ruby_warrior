@@ -3,20 +3,20 @@ module WarriorHelpers
 
     def direction
       if warrior.feel(:backward).wall?
-        @wall_back = !@wall_back
+        @wall_backward = true
         :forward
       elsif warrior.feel(:forward).wall?
-        @wall_front = !@wall_front
+        @wall_forward = true
         :backward
-      elsif only_wall? && !@only_wall
-        @only_wall = true
-        @to = inverse
+      elsif only_wall? && !@wall
+        @wall = true
+        inverse
       else
-        @to ||= test_to
+        @to || initial_direction
       end
     end
 
-    def test_to
+    def initial_direction
       b = first_item(:backward)
       f = first_item(:forward)
       if b.first
@@ -35,10 +35,10 @@ module WarriorHelpers
     end
 
     def inverse
-      if (@to || :forward) == :forward
-        @wall_back == true ? :forward : :backward
+      if (@to || initial_direction) == :forward
+        @wall_backward ? :forward : :backward
       else
-        @wall_front == true ? :backward : :forward
+        @wall_forward ? :backward : :forward
       end
     end
 

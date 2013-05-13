@@ -146,5 +146,9 @@ module WarriorHelpers
       end
     end
 
+    def enemy_will_die?
+      next_enemy_life - power <= 0
+    end
+
   end
 end
