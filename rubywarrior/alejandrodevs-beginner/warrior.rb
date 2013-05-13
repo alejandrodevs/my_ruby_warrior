@@ -12,7 +12,7 @@ class Warrior
 
   def prepare warrior
     @warrior = warrior
-    @to = set_direction
+    @to = direction
   end
 
   def play!

@@ -25,7 +25,7 @@ module WarriorHelpers
 
     def retire!
       @previous_look, @retired = look, true
-      warrior.walk!(@to == :forward ? :backward : :forward)
+      warrior.walk!(inverse_direction)
     end
 
     def shoot!

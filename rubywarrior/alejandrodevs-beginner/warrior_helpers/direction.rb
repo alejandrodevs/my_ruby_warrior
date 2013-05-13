@@ -1,7 +1,7 @@
 module WarriorHelpers
   module Direction
 
-    def set_direction
+    def direction
       if warrior.feel(:backward).wall?
         @wall_back = !@wall_back
         :forward
@@ -45,6 +45,10 @@ module WarriorHelpers
     def only_wall?
       a = look(@to || :backward).select{ |e| e != "nothing" }.uniq
       a.length == 1 && a[0] == "wall"
+    end
+
+    def inverse_direction
+      @to == :forward ? :backward : :forward
     end
 
   end
