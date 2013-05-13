@@ -42,11 +42,6 @@ module WarriorHelpers
       end
     end
 
-    def only_wall?
-      a = look(@to || :backward).select{ |e| e != "nothing" }.uniq
-      a.length == 1 && a[0] == "wall"
-    end
-
     def inverse_direction
       @to == :forward ? :backward : :forward
     end

@@ -150,5 +150,10 @@ module WarriorHelpers
       next_enemy_life - power <= 0
     end
 
+    def only_wall?
+      a = look(@to || :backward).select{ |e| e != "nothing" }.uniq
+      a.length == 1 && a[0] == "wall"
+    end
+
   end
 end
