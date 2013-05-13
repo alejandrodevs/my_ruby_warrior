@@ -5,13 +5,10 @@ module WarriorHelpers
     include Basics
     include Shoulds
     include Enemies
+    include Helpers
 
     def nothing? pos
       look[pos] == "nothing"
-    end
-
-    def power
-      should_shoot? ? 3 : (@to == :forward ? 5 : 3)
     end
 
     #--------------------------------------------------------------
@@ -40,10 +37,6 @@ module WarriorHelpers
     def first_item to = @to
       i = -1
       [look(to).detect{ |e| i += 1; e != "nothing" }, i]
-    end
-
-    def damage_given
-      (should_shoot? ? @shoots : @attacks).to_i
     end
 
     def dwt
