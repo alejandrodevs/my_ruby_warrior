@@ -42,6 +42,11 @@ module WarriorHelpers
       end
     end
 
+    def first_item to = @to
+      i = -1
+      [look(to).detect{ |e| i += 1; e != "nothing" }, i]
+    end
+
     def inverse_direction
       @to == :forward ? :backward : :forward
     end
