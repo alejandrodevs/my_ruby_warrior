@@ -3,7 +3,7 @@ module WarriorHelpers
     module Shoulds
 
       def should_pivot?
-        feel.wall? || warrior.look(:backward).map(&:to_s).include?("Captive")
+        (((nothing?(0) && look[1] == "wall") || feel.wall?) && only_wall?) || there_captive?(:backward)
       end
 
       def should_retire?

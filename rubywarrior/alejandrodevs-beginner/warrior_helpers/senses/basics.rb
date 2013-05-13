@@ -10,8 +10,8 @@ module WarriorHelpers
         warrior.health
       end
 
-      def look
-        warrior.look.map(&:to_s)
+      def look to = :forward
+        warrior.look(to).map(&:to_s)
       end
 
       def taking_damage?
