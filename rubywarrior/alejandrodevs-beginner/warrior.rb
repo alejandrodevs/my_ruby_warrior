@@ -23,8 +23,8 @@ class Warrior
     elsif should_rest?   then rest!
     elsif should_walk?   then walk!
     elsif should_shoot?  then shoot!
-    elsif feel.enemy?    then attack!
-    elsif feel.captive?  then rescue!
+    elsif should_attack? then attack!
+    elsif should_rescue? then rescue!
     end
   end
 
