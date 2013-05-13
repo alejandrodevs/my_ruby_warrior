@@ -10,12 +10,20 @@ module WarriorHelpers
         look.include? "wall"
       end
 
-      def there_captive? to
+      def there_captives? to = :forward
         look(to).include?("Captive")
       end
 
+      def there_enemies?
+        !enemies.empty?
+      end
+
       def only_wall?
-        clean_line.uniq.length == 1 && clean_line[0] == "wall" && !feel.stairs?
+        there_wall? && !there_stairs? && !there_enemies? && !there_captives?
+      end
+
+      def there_stairs?
+        warrior.look.select{ |e| e.stairs? }.count > 0
       end
 
     end
