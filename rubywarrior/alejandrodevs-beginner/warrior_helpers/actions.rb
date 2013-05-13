@@ -20,7 +20,6 @@ module WarriorHelpers
     end
 
     def pivot!
-      @pivoted = true
       warrior.pivot!
     end
 

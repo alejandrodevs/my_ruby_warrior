@@ -22,10 +22,6 @@ module WarriorHelpers
         @retired || false
       end
 
-      def pivoted?
-        @pivoted || false
-      end
-
       def danger?
         sludges?(0) || shooter?(1) || shooter?(2)
       end
