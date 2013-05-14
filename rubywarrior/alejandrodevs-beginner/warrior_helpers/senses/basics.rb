@@ -18,10 +18,6 @@ module WarriorHelpers
         health < previous_health
       end
 
-      def retired?
-        @retired || false
-      end
-
       def danger?
         sludges?(0) || shooter?(1) || shooter?(2)
       end

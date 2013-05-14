@@ -12,7 +12,6 @@ module WarriorHelpers
     end
 
     def walk!
-      @retired = false
       warrior.walk!
     end
 
@@ -25,7 +24,6 @@ module WarriorHelpers
     end
 
     def retire!
-      @previous_look, @retired = look, true
       warrior.walk!(:backward)
     end
 

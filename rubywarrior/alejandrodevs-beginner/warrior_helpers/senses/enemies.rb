@@ -56,14 +56,6 @@ module WarriorHelpers
         next_enemy ? enemy_will_die? : true
       end
 
-      def old_enemy
-        Array(@previous_look).select{|e| ENEMIES.include? e }.first
-      end
-
-      def old_enemies
-        @previous_look.select{|e| ENEMIES.include? e }
-      end
-
     end
   end
 end
