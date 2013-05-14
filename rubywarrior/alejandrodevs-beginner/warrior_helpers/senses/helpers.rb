@@ -14,8 +14,7 @@ module WarriorHelpers
         if nothing?(0) && (sludges?(1) || (nothing?(1) && sludges?(2)))
           0
         else
-          a = (next_enemy_life / power).ceil * 3
-          (next_enemy_life / power.to_f) == (next_enemy_life / power) ? a - 3 : a
+          ((next_enemy_life / power.to_f) - 1).ceil * 3
         end
       end
 
