@@ -7,7 +7,7 @@ module WarriorHelpers
       end
 
       def damage_given
-        (should_shoot? ? @shoots : @attacks).to_i
+        @shoots + @attacks
       end
 
       def clean_line

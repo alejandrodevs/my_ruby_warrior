@@ -3,6 +3,7 @@ module WarriorHelpers
 
     def attack!
       @attacks = enemy_will_die? ? 0 : @attacks + power
+      @shoots  = 0 if @attacks == 0
       warrior.attack!
     end
 
@@ -29,7 +30,8 @@ module WarriorHelpers
     end
 
     def shoot!
-      @shoots = enemy_will_die? ? 0 : @shoots + power
+      @shoots  = enemy_will_die? ? 0 : @shoots + power
+      @attacks = 0 if @shoots == 0
       warrior.shoot!
     end
 
