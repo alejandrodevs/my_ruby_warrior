@@ -15,8 +15,7 @@ module WarriorHelpers
       end
 
       def should_shoot?
-        nothing?(0) && ((wizard?(1) || (nothing?(1) && shooter?(2))) ||
-        ((sludges?(1) ? @shoots <= (small_sludge?(1) ? 0 : 6) : false) && !there_archers?(:backward) ))
+        should_shoot_shooters? || should_shoot_sludges? && !there_archers?(:backward)
       end
 
       def should_walk?
@@ -29,6 +28,14 @@ module WarriorHelpers
 
       def should_rescue?
         feel.captive?
+      end
+
+      def should_shoot_shooters?
+        nothing?(0) && (wizard?(1) || (nothing?(1) && shooter?(2)))
+      end
+
+      def should_shoot_sludges?
+        nothing?(0) && sludges?(1) && (@shoots <= (small_sludge?(1) ? 0 : 6))
       end
 
     end
