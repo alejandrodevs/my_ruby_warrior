@@ -11,11 +11,7 @@ module WarriorHelpers
       end
 
       def dwt
-        if nothing?(0) && (sludges?(1) || (nothing?(1) && sludges?(2)))
-          0
-        else
-          ((next_enemy_life / power.to_f) - 1).ceil * 3
-        end
+        danger? ? ((next_enemy_life / power.to_f) - 1).ceil * 3 : 0
       end
 
     end
