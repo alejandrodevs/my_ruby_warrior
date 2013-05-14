@@ -26,6 +26,10 @@ module WarriorHelpers
         warrior.look.select{ |e| e.stairs? }.count > 0
       end
 
+      def there_archers? to = :forward
+        look(to).select{|e| e == "Archer"}.count > 0
+      end
+
     end
   end
 end
