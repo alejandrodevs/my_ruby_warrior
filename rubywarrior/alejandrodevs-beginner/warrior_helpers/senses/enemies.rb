@@ -53,7 +53,7 @@ module WarriorHelpers
       end
 
       def can_kill_it?
-        next_enemy ? (next_enemy_life - power <= 0) : true
+        next_enemy ? enemy_will_die? : true
       end
 
       def old_enemy
