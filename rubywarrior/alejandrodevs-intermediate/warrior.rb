@@ -12,7 +12,9 @@ class Warrior
   def play!
     if    should_rest?   then rest!
     elsif should_walk?   then walk!
+    elsif should_bind?   then bind!
     elsif should_attack? then attack!
+    elsif should_rescue? then rescue!
     end
   end
 

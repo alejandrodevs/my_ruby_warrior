@@ -13,5 +13,13 @@ module WarriorHelpers
       warrior.rest!
     end
 
+    def rescue!
+      warrior.rescue!(captive_direction)
+    end
+
+    def bind!
+      warrior.bind!(enemy_direction)
+    end
+
   end
 end
