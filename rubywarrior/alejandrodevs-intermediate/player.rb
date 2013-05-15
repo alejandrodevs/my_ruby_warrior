@@ -1,5 +1,15 @@
+require 'warrior'
+
 class Player
-  def play_turn(warrior)
-    warrior.walk!(warrior.direction_of_stairs)
+
+  def initialize
+    @warrior = Warrior.new
   end
+
+  def play_turn warrior
+    @warrior.prepare(warrior)
+    @warrior.play!
+    @warrior.set_memories
+  end
+
 end
