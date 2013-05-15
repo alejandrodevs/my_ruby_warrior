@@ -5,16 +5,21 @@ class Warrior
 
   attr_accessor :warrior
 
+  def initialize
+    @attacks = 0
+  end
+
   def prepare warrior
     @warrior = warrior
   end
 
   def play!
-    if    should_rest?   then rest!
-    elsif should_walk?   then walk!
+    if    should_retire? then retire!
+    elsif should_rest?   then rest!
     elsif should_bind?   then bind!
     elsif should_attack? then attack!
     elsif should_rescue? then rescue!
+    elsif should_walk?   then walk!
     end
   end
 
