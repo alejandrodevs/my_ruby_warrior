@@ -1,6 +1,10 @@
 module WarriorHelpers
   module Health
 
+    def health
+      warrior.health
+    end
+
     def previous_health
       @previous_health || health
     end

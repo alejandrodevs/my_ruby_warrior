@@ -4,4 +4,6 @@ module WarriorHelpers
   include Senses
   include Actions
   include Health
+  include Direction
+  include Shoulds
 end

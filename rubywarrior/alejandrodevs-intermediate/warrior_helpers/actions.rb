@@ -2,7 +2,7 @@ module WarriorHelpers
   module Actions
 
     def attack!
-      warrior.attack!(enemy_direction || :forward)
+      warrior.attack!(enemy_direction)
     end
 
     def walk!
