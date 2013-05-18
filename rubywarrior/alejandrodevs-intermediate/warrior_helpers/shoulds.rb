@@ -6,24 +6,27 @@ module WarriorHelpers
     end
 
     def should_rest?
-      safe? && there_enemy? && !can_kill_it? && !health_necessary?
-    end
-
-    def should_walk?
-      #safe? && empty_around?
-      true
-    end
-
-    def should_attack?
-      feel(optimal_direction).enemy?
+      safe? && enemy? && need_more_health?
     end
 
     def should_bind?
-      enemies_around > 1
+      surrounded?
+    end
+
+    def should_detonate?
+      enemies_mob? && feel(dir).enemy?
+    end
+
+    def should_attack?
+      feel(dir).enemy?
     end
 
     def should_rescue?
-      feel(optimal_direction).captive?
+      feel(dir).captive?
+    end
+
+    def should_walk?
+      feel(dir).empty?
     end
 
   end

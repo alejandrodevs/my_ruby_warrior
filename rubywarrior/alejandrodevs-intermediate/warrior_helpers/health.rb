@@ -13,8 +13,12 @@ module WarriorHelpers
       health < 3
     end
 
-    def in_shape?
-      health >= 14
+    def health_necessary?
+      damage_will_take < 20 ? damage_will_take < health : health > 19
+    end
+
+    def need_more_health?
+      !can_kill_it? && !health_necessary?
     end
 
   end

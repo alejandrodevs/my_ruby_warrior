@@ -7,6 +7,7 @@ class Warrior
 
   def initialize
     @attacks = 0
+    @enemies_binded = []
   end
 
   def prepare warrior
@@ -14,12 +15,13 @@ class Warrior
   end
 
   def play!
-    if    should_retire? then retire!
-    elsif should_rest?   then rest!
-    elsif should_bind?   then bind!
-    elsif should_attack? then attack!
-    elsif should_rescue? then rescue!
-    elsif should_walk?   then walk!
+    if    should_retire?   then retire!
+    elsif should_rest?     then rest!
+    elsif should_bind?     then bind!
+    elsif should_detonate? then detonate!
+    elsif should_attack?   then attack!
+    elsif should_rescue?   then rescue!
+    elsif should_walk?     then walk!
     end
   end
 

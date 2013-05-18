@@ -5,27 +5,33 @@ module WarriorHelpers
       warrior.direction_of_stairs
     end
 
+    def direction_of space
+      warrior.direction_of(space)
+    end
+
     def directions
       [:forward, :backward, :right, :left]
     end
 
-    def direction_of_captive
-      direction_of(there_captive?) if there_captive?
+    def direction_of_ticking
+      direction_of(captive_ticking?) if captive_ticking?
     end
 
-    def direction_of_enemy
-      direction_of(there_enemy?) if there_enemy?
+    def direction_of_closer_object
+      direction_of(closer_object) if closer_object
     end
 
     def direction
-      direction_of_captive || direction_of_enemy || direction_of_stairs
+      direction_of_ticking ||
+      direction_of_closer_object ||
+      direction_of_stairs
     end
 
     def better_direction? direction
       feel(direction).stairs? ? empty_field? : !feel(direction).wall?
     end
 
-    def optimal_direction
+    def dir
       better_direction?(direction) ? direction : alternative_direction
     end
 
@@ -43,7 +49,7 @@ module WarriorHelpers
     end
 
     def safe_direction
-      inverse_direction[@previous_direction]
+      inverse_direction[@previous_direction || :right]
     end
 
     def inverse_direction
@@ -55,8 +61,8 @@ module WarriorHelpers
       }
     end
 
-    def direction_of space
-      warrior.direction_of(space)
+    def direction_enemy_around
+      directions.detect{ |d| feel(d).enemy? && d != dir }
     end
 
   end

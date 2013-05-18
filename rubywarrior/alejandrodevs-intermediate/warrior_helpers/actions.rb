@@ -3,24 +3,28 @@ module WarriorHelpers
 
     def attack!
       @attacks = enemy_will_die? ? 0 : @attacks + power
-      warrior.attack!(optimal_direction)
+      warrior.attack!(dir)
     end
 
     def walk!
-      @previous_direction = optimal_direction
-      warrior.walk!(optimal_direction)
+      @previous_direction = dir
+      warrior.walk!(dir)
     end
 
     def rest!
       warrior.rest!
     end
 
+    def detonate!
+      warrior.detonate!(dir)
+    end
+
     def rescue!
-      warrior.rescue!(optimal_direction)
+      warrior.rescue!(dir)
     end
 
     def bind!
-      warrior.bind!(direction_of_enemy)
+      warrior.bind!(direction_enemy_around)
     end
 
     def retire!
