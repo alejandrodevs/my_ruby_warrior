@@ -6,11 +6,12 @@ module WarriorHelpers
     end
 
     def should_rest?
-      !in_shape? && safe? && there_enemy?
+      safe? && there_enemy? && !can_kill_it? && !health_necessary?
     end
 
     def should_walk?
-      safe? && empty_around?
+      #safe? && empty_around?
+      true
     end
 
     def should_attack?
@@ -22,7 +23,7 @@ module WarriorHelpers
     end
 
     def should_rescue?
-      there_captive? && feel(direction_of_captive).captive?
+      feel(optimal_direction).captive?
     end
 
   end

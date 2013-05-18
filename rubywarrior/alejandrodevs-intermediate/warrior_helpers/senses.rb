@@ -18,7 +18,7 @@ module WarriorHelpers
     end
 
     def there_captive?
-      listen.detect{ |s| s.captive? }
+      space_ticking? || listen.detect{ |s| s.captive? }
     end
 
     def there_enemy?
@@ -59,6 +59,14 @@ module WarriorHelpers
 
     def can_kill_it?
       next_enemy ? enemy_will_die? : true
+    end
+
+    def health_necessary?
+      dwt >= 20 ? health >= 19 : dwt < health
+    end
+
+    def dwt
+      !safe? ? ((next_enemy_life / power.to_f) - 1).ceil * 3 : 0
     end
 
   end
