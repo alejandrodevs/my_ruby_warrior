@@ -18,7 +18,7 @@ module WarriorHelpers
     end
 
     def should_attack?
-      feel(dir).enemy?
+      feel(dir).enemy? || captive_liar?
     end
 
     def should_rescue?

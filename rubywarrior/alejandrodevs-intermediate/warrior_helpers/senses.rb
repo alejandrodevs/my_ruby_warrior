@@ -1,6 +1,8 @@
 module WarriorHelpers
   module Senses
 
+    ENEMIES = ["Thick Sludge", "Sludge"]
+
     def safe?
       enemies_around == 0
     end
@@ -10,7 +12,7 @@ module WarriorHelpers
     end
 
     def enemies
-      listen.select{ |s| s.enemy? }
+      listen.select{ |s| ENEMIES.include?(s.to_s) }
     end
 
     def captives
@@ -42,7 +44,7 @@ module WarriorHelpers
     end
 
     def enemy_health
-      enemies_hp[enemy?.to_s] - @attacks
+      enemies_hp[closer_enemy.to_s] - @attacks
     end
 
     def enemy_will_die?
@@ -71,6 +73,18 @@ module WarriorHelpers
 
     def closer_object
       (enemies + captives).detect{ |s| distance_of(s) == distances.min}
+    end
+
+    def enemies_distances
+      enemies.map{ |s| distance_of(s) }
+    end
+
+    def closer_enemy
+      enemies.detect{ |s| distance_of(s) == enemies_distances.min}
+    end
+
+    def captive_liar?
+      feel(dir).captive? && ENEMIES.include?(feel(dir).to_s)
     end
 
   end

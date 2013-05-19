@@ -8,6 +8,7 @@ module WarriorHelpers
 
     def walk!
       @previous_direction = dir
+      @attacks = 0
       warrior.walk!(dir)
     end
 

@@ -7,7 +7,6 @@ class Warrior
 
   def initialize
     @attacks = 0
-    @enemies_binded = []
   end
 
   def prepare warrior
